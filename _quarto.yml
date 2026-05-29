@@ -1,0 +1,45 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "2. Linear Algebra"          # ← 변경
+  description: "강의 설명"           # ← 변경
+  favicon: images/favicon.ico
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+    right:
+      - icon: github
+        href: https://github.com/kkonoo/2_linear_algebra  # ← 변경
+
+  sidebar:
+    style: "floating"
+    search: true
+    contents:
+      - text: "홈"
+        href: index.qmd
+      - section: "Part 1. 기초"
+        contents:
+          - chapters/01_intro.qmd
+          - chapters/02_r_basics.qmd
+
+format:
+  html:
+    theme:
+      light: cosmo
+    css: assets/custom.css
+    toc: true
+    toc-depth: 3
+    toc-title: "목차"
+    number-sections: false
+    smooth-scroll: true
+    # AI 채팅 위젯 전역 설정
+    include-after-body: assets/ai-chat-init.html
+
+execute:
+  freeze: auto          # 코드 실행 결과 캐시 (빠른 빌드)
+  echo: true
+  warning: false
+  message: false
