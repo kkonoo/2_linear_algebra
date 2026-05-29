@@ -5,7 +5,7 @@ project:
 website:
   title: "2. Linear Algebra"          # ← 변경
   description: "강의 설명"           # ← 변경
-  favicon: images/favicon.ico
+  favicon: images/favicon_logo.ico
   navbar:
     left:
       - href: index.qmd
