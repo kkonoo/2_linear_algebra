@@ -3,17 +3,32 @@ project:
   execute-dir: project
   # output-dir: _site
 
+  # ⚠️ Quarto는 "참조된" 파일만 _site/ 로 복사합니다.
+  #    ai-chat.js 는 JS에서 동적으로 불러오므로 여기에 명시해야 배포본에 들어갑니다.
+  #    (밑줄로 시작하는 _extensions/ 폴더는 아예 복사되지 않습니다)
+  resources:
+    - assets/ai-chat.js
+
+  # 렌더 대상을 명시 — 이 목록에 없는 .qmd 는 빌드하지 않음
+  render:
+    - index.qmd
+    - chapters/01_why_networks.qmd
+    - chapters/02_representation.qmd
+    - chapters/90_colab_setup.qmd
+    - chapters/91_glossary.qmd
+
 website:
-  title: "2. Linear Algebra"          # ← 변경
-  description: "강의 설명"           # ← 변경
-  favicon: images/logo.ico
+  title: "4. 네트워크와 딥러닝"
+  description: "생물의학 데이터를 위한 그래프 이론과 신경망"
+  favicon: images/logo.ico/favicon.ico
+  page-navigation: true          # 페이지 하단에 이전/다음 챕터 링크
   navbar:
     left:
       - href: index.qmd
         text: Home
     right:
       - icon: github
-        href: https://github.com/kkonoo/2_linear_algebra  # ← 변경
+        href: https://github.com/kkonoo/4_graphs
 
   sidebar:
     style: "floating"
@@ -21,20 +36,36 @@ website:
     contents:
       - text: "Home"
         href: index.qmd
-      - section: "Part 1. 기초"
+      - section: "Part 1. 네트워크와 그래프 이론"
         contents:
-          - chapters/01_intro.qmd
-          - chapters/02_r_basics.qmd
-      # - section: "1. R env"
-      #   contents: "part1/*.qmd"
-      # - section: "2. Genomics"
-      #   contents: "part2/*.qmd"
-      # - section: "3. Omics"
-      #   contents: "part3/*.qmd"
-      # - section: "4. Multi-Omics"
-      #   contents: "part4/*.qmd"
-      # - section: "5. Capstone"
-      #   contents: "part5/*.qmd"
+          - text: "01. 왜 네트워크인가"
+            href: chapters/01_why_networks.qmd
+          - text: "02. 그래프의 표현"
+            href: chapters/02_representation.qmd
+          # - text: "03. 네트워크 정량화와 중심성"
+          #   href: chapters/03_metrics.qmd
+          # - text: "04. 랜덤 그래프와 null model"
+          #   href: chapters/04_random_null.qmd
+          # - text: "05. 커뮤니티와 모듈"
+          #   href: chapters/05_community.qmd
+          # - text: "06. 전파와 예측"
+          #   href: chapters/06_propagation.qmd
+          # - text: "07. 실무 — 데이터·편향·시각화"
+          #   href: chapters/07_practice.qmd
+      # - section: "Part 2. 신경망과 그래프 학습"
+      #   contents:
+      #     - chapters/08_nn_basics.qmd
+      #     - chapters/09_training.qmd
+      #     - chapters/10_architectures.qmd
+      #     - chapters/11_node_embedding.qmd
+      #     - chapters/12_gnn.qmd
+      #     - chapters/13_frontiers.qmd
+      - section: "부록"
+        contents:
+          - text: "90. Colab 환경 설정"
+            href: chapters/90_colab_setup.qmd
+          - text: "91. 용어집"
+            href: chapters/91_glossary.qmd
 
   page-footer:
     left: "Copyright 2026, Eunji"
@@ -51,14 +82,14 @@ format:
     toc-float: true
     page-layout: full
 
-    code-fold: false  
+    code-fold: false
     code-copy: true
-    highlight-style: github 
+    highlight-style: github
 
     number-sections: false
     smooth-scroll: true
 
-    # grid:                       
+    # grid:
     #   sidebar-width: 400px
     #   body-width: 1000px
     #   margin-width: 300px # toc
@@ -76,4 +107,3 @@ execute:
   eval: false
   warning: false
   message: false
-
