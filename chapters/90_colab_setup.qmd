@@ -1,0 +1,95 @@
+---
+title: "90. Colab 환경 설정"
+description: "실습 환경, 패키지, 데이터셋"
+author: "Eunji Ha"
+date: today
+
+format:
+  html:
+    include-in-header:
+      text: |
+        <meta name="ai-title" content="90. Colab 환경 설정">
+        <meta name="ai-context" content="
+        이 강의의 실습은 모두 Google Colab에서 실행합니다. 로컬 설치는 필요 없습니다.
+        Part 1(그래프)에 필요한 networkx, numpy, pandas, matplotlib, scipy는 Colab에
+        이미 설치되어 있고 python-igraph와 leidenalg만 pip install 하면 됩니다.
+        python-louvain(import 이름 community)은 최신 numpy/pandas 환경에서 빌드에
+        실패하므로 쓰지 않고, networkx 내장 louvain_communities를 사용합니다.
+        Part 2(딥러닝)는 torch-geometric을 설치하고 런타임 유형을 T4 GPU로 바꿉니다.
+        단일세포 실습에는 scanpy가 필요합니다.
+        실습 데이터: Zachary karate club(nx 내장), STRING PPI 서브네트워크(string-db.org
+        에서 TSV 다운로드), PBMC 3k(sc.datasets.pbmc3k_processed), Cora와 ENZYMES
+        (torch_geometric.datasets).
+        ">
+---
+
+> 🤔 이 과목의 실습은 전부 Google Colab에서 돌아갑니다. 설치할 것은 없습니다.
+
+------------------------------------------------------------------------
+
+## 1. 시작하기 {#c90-s1}
+
+- [colab.research.google.com](https://colab.research.google.com/) 접속 → Google 계정 로그인 → **새 노트북**
+- 각 챕터의 🐍 실습 블록 코드를 셀에 붙여넣고 `Shift + Enter`
+- Part 2의 GNN 데모만 GPU가 필요합니다 → **런타임 → 런타임 유형 변경 → T4 GPU**
+
+------------------------------------------------------------------------
+
+## 2. 패키지 {#c90-s2}
+
+### 1) Part 1 — 그래프 {#c90-s2-1}
+
+`networkx`, `numpy`, `pandas`, `matplotlib`, `scipy`는 Colab에 이미 있습니다. 나머지만 설치합니다.
+
+```bash
+!pip install -q python-igraph leidenalg
+```
+
+::: {.callout-warning collapse="true"}
+### `python-louvain`은 쓰지 않습니다
+
+`python-louvain`(import 이름 `community`)은 최신 numpy·pandas 환경에서 빌드에 실패합니다.
+
+→ ✅ networkx에 내장된 `networkx.algorithms.community.louvain_communities`를 사용하세요. 결과는 동일하고 의존성이 없습니다.
+:::
+
+### 2) Part 2 — 딥러닝 {#c90-s2-2}
+
+```bash
+!pip install -q torch-geometric
+```
+
+- `torch`는 Colab에 이미 설치되어 있습니다
+- ⚠️ PyTorch Geometric은 버전 충돌이 잦습니다. 설치 후 아래로 확인하세요
+
+```python
+import torch, torch_geometric
+print(torch.__version__, torch_geometric.__version__, torch.cuda.is_available())
+```
+
+### 3) 단일세포 실습 {#c90-s2-3}
+
+```bash
+!pip install -q scanpy
+```
+
+------------------------------------------------------------------------
+
+## 3. 실습 데이터 {#c90-s3}
+
+| 데이터 | 쓰는 곳 | 받는 법 |
+|---|---|---|
+| Zachary karate club | 01 ~ 06 전반 | `nx.karate_club_graph()` — 내장 |
+| STRING PPI 서브네트워크 | 02, 03, 07 | [string-db.org](https://string-db.org/)에서 유전자 목록 검색 → TSV 다운로드 |
+| PBMC 3k (단일세포) | 01, 05, 13 | `sc.datasets.pbmc3k_processed()` |
+| Cora | 12 | `torch_geometric.datasets.Planetoid` |
+| ENZYMES | 12 | `torch_geometric.datasets.TUDataset` |
+
+::: {.callout-tip collapse="true"}
+### 세션이 끊겨도 괜찮습니다
+
+Colab 무료 런타임은 일정 시간 뒤 초기화됩니다.
+
+- ✅ 노트북은 Google Drive에 자동 저장됨
+- ⚠️ 설치한 패키지와 변수는 사라짐 → 재접속 후 `!pip install` 셀부터 다시 실행
+:::

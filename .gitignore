@@ -16,3 +16,5 @@ figs/__pycache__/
 # OS
 .DS_Store
 Thumbs.db
+_quarto.yml
+index.qmd

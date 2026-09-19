@@ -14,5 +14,19 @@
     chapterContext: metaContext ? metaContext.content : "",
     chapterTitle:   metaTitle  ? metaTitle.content   : document.title,
   };
+
+  // ai-chat.js 는 assets/ 에 둡니다.
+  // ⚠️ _extensions/ 처럼 밑줄로 시작하는 폴더는 Quarto가 _site/ 로 복사하지 않아서
+  //    빌드된 사이트에서 404가 납니다. assets/ 는 그대로 복사됩니다.
+  // 경로는 quarto:offset 메타로 사이트 루트를 찾아 붙입니다
+  // (고정 "../assets/..." 로 쓰면 루트의 index.html 에서 깨집니다).
+  (function () {
+    var offsetMeta = document.querySelector('meta[name="quarto:offset"]');
+    var root = offsetMeta ? offsetMeta.content : "./";
+    if (root && !root.endsWith("/")) root += "/";
+    var s = document.createElement("script");
+    s.src = root + "assets/ai-chat.js";
+    s.defer = true;
+    document.body.appendChild(s);
+  })();
 </script>
-<script src="../_extensions/ai-chat/ai-chat.js" defer></script>

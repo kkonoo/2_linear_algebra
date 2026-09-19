@@ -1,0 +1,82 @@
+---
+title: "91. 용어집"
+description: "챕터별 용어 한영 대조표"
+author: "Eunji Ha"
+date: today
+
+format:
+  html:
+    include-in-header:
+      text: |
+        <meta name="ai-title" content="91. 용어집">
+        <meta name="ai-context" content="
+        이 페이지는 강의 전체에서 쓰는 용어의 한영 대조표입니다. Part 1(그래프)은
+        노드, 엣지, 인접 행렬, 엣지 목록, 희소, 이분 그래프, 사영, 연결 요소,
+        절단점, 차수, 차수 분포, 뭉침 계수, 매개 중심성, PageRank, null model,
+        재배선, 모티프, 모듈성, Louvain/Leiden, resolution, 라플라시안,
+        피들러 벡터, 재시작 랜덤워크, 링크 예측, study bias를 포함합니다.
+        Part 2(신경망)는 퍼셉트론, 활성함수, 역전파, 과적합, 정규화, 오토인코더,
+        잠재 공간, 어텐션, 노드 임베딩, node2vec, transductive/inductive,
+        메시지 전달, GCN/GraphSAGE/GAT, 과평활화, WL 검정, 그래프 트랜스포머를
+        포함합니다.
+        ">
+---
+
+> 챕터마다 용어표를 반복하지 않고 여기에 모읍니다. 처음 등장한 챕터를 함께 적었습니다.
+
+------------------------------------------------------------------------
+
+## Part 1 · 그래프 {#c91-s1}
+
+| 용어 | 한국어 | 한 줄 뜻 | 처음 나오는 곳 |
+|---------|---------|----------------------------------|---------|
+| Node (vertex) | 노드, 꼭짓점 | 네트워크의 구성 단위 — 유전자, 세포, 환자 | 01 |
+| Edge | 엣지, 간선 | 두 노드 사이의 관계 | 01 |
+| Natural graph | 자연 그래프 | 연결이 물리적으로 실재하는 그래프 | 01 |
+| Information graph | 정보 그래프 | 연결을 우리가 부여한 그래프 | 01 |
+| Adjacency matrix | 인접 행렬 | 연결을 n × n 행렬로 표현한 것 | 02 |
+| Edge list | 엣지 목록 | (i, j) 쌍의 나열 | 02 |
+| Sparse | 희소 | 가능한 연결 중 극히 일부만 존재하는 상태 | 02 |
+| Bipartite graph | 이분 그래프 | 노드가 두 집단으로 나뉘고 집단 간에만 연결 | 02 |
+| Projection | 사영 | 이분 그래프를 한쪽 집단만의 그래프로 바꾸기 | 02 |
+| Component | 연결 요소 | 서로 도달 가능한 노드의 묶음 | 02 |
+| Articulation node | 절단점 | 제거하면 네트워크가 쪼개지는 노드 | 02 |
+| Degree | 차수 | 한 노드에 붙은 엣지 수 | 02 |
+| Degree distribution | 차수 분포 | 차수 k를 가진 노드의 비율 P(k) | 03 |
+| Clustering coefficient | 뭉침 계수 | 내 이웃끼리 서로 이웃인 정도 | 03 |
+| Betweenness centrality | 매개 중심성 | 최단경로가 나를 지나는 정도 — bottleneck | 03 |
+| PageRank | 페이지랭크 | 랜덤워크가 머무는 확률로 잰 중요도 | 03 |
+| Null model | 귀무 모형 | "우연이라면 이만큼"을 만들어주는 비교 그래프 | 04 |
+| Rewiring | 재배선 | 차수를 보존한 채 엣지를 섞어 null을 만드는 방법 | 04 |
+| Motif | 모티프 | null보다 유의하게 자주 나타나는 부분구조 | 04 |
+| Modularity (Q) | 모듈성 | 커뮤니티 분할이 얼마나 좋은지의 점수 | 05 |
+| Louvain / Leiden | — | 모듈성을 최대화하는 커뮤니티 검출 알고리즘 | 05 |
+| Resolution | 해상도 | 커뮤니티를 얼마나 잘게 쪼갤지 정하는 파라미터 | 05 |
+| Laplacian | 라플라시안 | L = D − A. 스펙트럴 방법의 출발점 | 05 |
+| Fiedler vector | 피들러 벡터 | 두 번째 고유벡터 — 그래프를 이등분 | 05 |
+| Random walk with restart | 재시작 랜덤워크 | 시드에서 출발해 네트워크로 퍼뜨리는 방법 | 06 |
+| Link prediction | 링크 예측 | 아직 없는 엣지가 있을 법한지 예측 | 06 |
+| Study bias | 연구 편향 | 많이 연구된 대상이 hub처럼 보이는 현상 | 07 |
+
+------------------------------------------------------------------------
+
+## Part 2 · 신경망 {#c91-s2}
+
+| 용어 | 한국어 | 한 줄 뜻 | 처음 나오는 곳 |
+|---------|---------|----------------------------------|---------|
+| Perceptron | 퍼셉트론 | 가중합에 비선형을 씌운 최소 단위 | 08 |
+| Activation function | 활성함수 | 비선형을 넣는 함수 (ReLU 등) | 08 |
+| Backpropagation | 역전파 | 연쇄법칙으로 기울기를 거슬러 계산 | 08 |
+| Overfitting | 과적합 | 학습 데이터만 잘 맞추는 상태 | 09 |
+| Regularization | 정규화 | 과적합을 막는 장치 (dropout, weight decay) | 09 |
+| Autoencoder | 오토인코더 | 압축했다 복원하며 표현을 배우는 구조 | 10 |
+| Latent space | 잠재 공간 | 압축된 표현이 사는 저차원 공간 | 10 |
+| Attention | 어텐션 | 어디를 볼지 가중치로 배우는 방식 | 10 |
+| Node embedding | 노드 임베딩 | 노드를 벡터로 바꾼 것 | 11 |
+| node2vec | — | 랜덤워크로 노드 임베딩을 학습하는 방법 | 11 |
+| Transductive / inductive | 전이적 / 귀납적 | 새 노드에 적용 불가 / 가능 | 11 |
+| Message passing | 메시지 전달 | 이웃 정보를 모아 노드를 갱신하는 GNN의 핵심 연산 | 12 |
+| GCN / GraphSAGE / GAT | — | 이웃을 집계하는 세 가지 방식 | 12 |
+| Over-smoothing | 과평활화 | 층을 쌓을수록 모든 노드가 같아지는 현상 | 12 |
+| Weisfeiler–Lehman test | WL 검정 | GNN의 표현력 한계를 규정하는 그래프 동형 판별 절차 | 12 |
+| Graph transformer | 그래프 트랜스포머 | 이웃이 아니라 전체를 보는 최신 계열 | 13 |
