@@ -1,0 +1,139 @@
+---
+title: "부록 A. 수치선형대수 노트"
+description: "수학적으로 가능한 것과 계산해도 되는 것 사이"
+author: "Eunji Ha"
+date: today
+format:
+  html:
+    include-in-header:
+      text: |
+        <meta name="ai-title" content="부록 A. 수치선형대수 노트">
+        <meta name="ai-context" content="
+        이 부록은 수치선형대수의 실무 지침을 다룹니다.
+        조건수는 최대 특이값 대 최소 특이값의 비로 입력 오차가 출력에서 증폭되는 정도이며
+        조건수가 10의 k승이면 유효숫자 k자리를 잃습니다.
+        행렬식은 스케일에 휘둘려 안정성 지표로 부적절합니다.
+        분해 선택은 일반 연립방정식이면 LU, 대칭 양정치면 숄레스키,
+        최소제곱이면 QR, 랭크 부족이나 최소노름 해면 SVD입니다.
+        R과 Python의 함수들은 내부에서 LAPACK을 호출합니다.
+        역행렬을 명시적으로 구하지 말고 solve(A, b)를 쓰며
+        정규방정식 대신 QR을 쓰고 부동소수점 비교는 all.equal이나 allclose를 씁니다.
+        ">
+---
+
+> 본문 여기저기에서 "자세히는 부록 A"라고 미뤄둔 이야기를 모은 것입니다.
+
+------------------------------------------------------------------------
+
+## 1. 조건수 {#s1}
+
+### 1) 정의와 의미 {#s1-1}
+
+$$\kappa(A) = \frac{\sigma_{\max}}{\sigma_{\min}} \qquad (\sigma = \text{특이값} \to 🔗[15장](../chapters/15_svd.qmd))$$
+
+- 입력의 상대오차가 출력에서 **몇 배로 증폭되는가**
+  $$\frac{\lVert \delta x\rVert}{\lVert x\rVert} \;\lesssim\; \kappa(A)\,\frac{\lVert \delta b\rVert}{\lVert b\rVert}$$
+- 실무 규칙 … $\kappa \approx 10^k$면 **유효숫자 $k$자리를 잃음**
+  - double precision은 약 16자리 ⟹ $\kappa > 10^{12}$면 결과를 믿기 어려움
+
+| $\kappa$ | 상태 |
+|---|---|
+| $1$ | 직교행렬 … 이상적 (🔗[14장](../chapters/14_qr.qmd)) |
+| $10^2 \sim 10^4$ | 정상 |
+| $10^8$ | 절반의 자릿수를 잃음 … 경고 |
+| $\ge 10^{12}$ | 사실상 특이행렬로 취급 |
+
+### 2) ⚠️ $\det$는 안정성 지표가 아니다 {#s1-2}
+
+- $\det(0.1\,I_{100}) = 10^{-100}$ … 0에 극도로 가까움
+  - 그러나 $\kappa = 1$ … **완벽히 안정적**
+- $\det$는 스케일에 휘둘리고, $\kappa$는 스케일 불변
+- ⟹ "$\det$가 작으니 특이행렬에 가깝다"는 판단은 틀릴 수 있음 (🔗[6장](../chapters/06_determinant.qmd))
+
+### 3) 조건수를 키우는 흔한 실수 {#s1-3}
+
+- $A^\top A$를 만드는 것 … $\kappa(A^\top A) = \kappa(A)^2$ (🔗[9장](../chapters/09_least_squares.qmd))
+- 단위가 크게 다른 열을 섞는 것 … 나이(0–100)와 발현량($10^6$)
+  - ⟹ 스케일링이 조건수를 낮춤
+- 상관이 매우 높은 공변량 (🔗[6장](../chapters/06_determinant.qmd) 다중공선성)
+
+------------------------------------------------------------------------
+
+## 2. 어떤 분해를 쓸 것인가 {#s2}
+
+| 상황 | 분해 | 계산량 | R / Python |
+|---|---|---|---|
+| 일반 연립방정식 | LU / PLU | $\tfrac{2}{3}n^3$ | `solve(A,b)` / `np.linalg.solve` |
+| 대칭 양정치 | 숄레스키 | $\tfrac{1}{3}n^3$ | `chol` / `cho_factor` |
+| 최소제곱 (열 독립) | **QR** | $2mn^2$ | `qr`, `lm` / `lstsq` |
+| 랭크 부족 · 최소노름 | **SVD** | $\approx 10mn^2$ | `svd` / `np.linalg.svd` |
+| 대칭행렬의 고유구조 | EVD (대칭 전용) | $\approx 9n^3$ | `eigen(symmetric=TRUE)` / `eigh` |
+| 상위 몇 개 성분만 | truncated SVD | 반복법 | `irlba` / `svds` |
+
+- 위에서 아래로 갈수록 **비싸지만 강건**
+- 원칙 … 문제의 구조가 허락하는 가장 싼 분해를 쓰되, 조건수가 나쁘면 한 단계 올라간다
+
+------------------------------------------------------------------------
+
+## 3. 하지 말아야 할 것 {#s3}
+
+| ✕ | ○ | 이유 |
+|---|---|---|
+| `solve(A) %*% b` | `solve(A, b)` | 역행렬은 계산량도 오차도 크게 만듦 (🔗[8장](../chapters/08_lu_cholesky.qmd)) |
+| `solve(t(A)%*%A) %*% t(A)%*%y` | `lm()` 또는 QR | 조건수 제곱 (🔗[9장](../chapters/09_least_squares.qmd)) |
+| 여인수 전개로 $\det$·역행렬 | LU | $O(n!)$ vs $O(n^3)$ (🔗[6장](../chapters/06_determinant.qmd)) |
+| 큰 $n$에서 `det(A)` | `determinant(A, logarithm=TRUE)` | 대각 곱이 overflow/underflow |
+| 희소행렬에 `as.matrix()` | 희소 그대로 | 메모리 폭발 (🔗[2장](../chapters/02_linear_transformation.qmd)) |
+| 사영행렬 $H$를 만들기 | $Q Q^\top$ 또는 곱셈 순서 조정 | $m\times m$은 만들 수 없음 (🔗[9장](../chapters/09_least_squares.qmd)) |
+| 반복문마다 재분해 | 분해 한 번 + substitution 반복 | $O(n^3)$의 반복을 피함 |
+
+------------------------------------------------------------------------
+
+## 4. 그 함수는 무엇을 부르는가 {#s4}
+
+- R과 NumPy·SciPy 모두 결국 **LAPACK**(그 아래는 BLAS)을 호출
+  - BLAS 구현(OpenBLAS·MKL·Accelerate)에 따라 속도가 몇 배 차이
+  - R에서는 `sessionInfo()`로 확인
+
+| 함수 | 내부 |
+|---|---|
+| `solve(A,b)` | LU + partial pivoting (`dgesv`) |
+| `chol` | 숄레스키 (`dpotrf`) |
+| `qr` | 하우스홀더 (`dgeqrf`) (🔗[14장](../chapters/14_qr.qmd)) |
+| `eigen(symmetric=TRUE)` | 삼중대각화 + QR 알고리즘 (`dsyevr`) |
+| `svd` | 이중대각화 + 분할정복 (`dgesdd`) |
+| `lm` | QR (`dqrls`) |
+
+------------------------------------------------------------------------
+
+## 5. 부동소수점 {#s5}
+
+- double은 약 16자리 … $2^{-52} \approx 2.2\times10^{-16}$이 machine epsilon
+- ⟹ 계산 결과를 `==`로 비교하지 말 것
+
+```r
+0.1 + 0.2 == 0.3          # FALSE
+all.equal(0.1 + 0.2, 0.3) # TRUE
+```
+
+```python
+0.1 + 0.2 == 0.3          # False
+np.isclose(0.1 + 0.2, 0.3)  # True
+```
+
+- 실무 점검 항목
+  - 직교성 … $\lVert Q^\top Q - I\rVert$가 machine epsilon의 몇 배인가
+  - rank … `qr()$rank`나 SVD의 tolerance가 무엇으로 잡혀 있는가
+  - 대칭성 … 이론상 대칭인 행렬도 계산 오차로 미세하게 비대칭
+    - ⟹ `eigen(A, symmetric=TRUE)`를 **명시**해 강제할 것
+
+------------------------------------------------------------------------
+
+## 6. 점검 체크리스트 {#s6}
+
+- [ ] 역행렬을 명시적으로 만들고 있지 않은가
+- [ ] 같은 $A$로 여러 번 푸는데 매번 분해하고 있지 않은가
+- [ ] $A^\top A$를 만들고 있지 않은가
+- [ ] 조건수를 확인했는가 (`kappa`, `np.linalg.cond`)
+- [ ] 대칭·양정치·희소 같은 구조를 함수에 알려주었는가
+- [ ] 큰 행렬에서 전체 분해 대신 상위 $k$개만으로 충분하지 않은가

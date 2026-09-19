@@ -1,0 +1,161 @@
+---
+title: "부록 C. R / Python 치트시트"
+description: "행렬 연산 대조표"
+author: "Eunji Ha"
+date: today
+format:
+  html:
+    include-in-header:
+      text: |
+        <meta name="ai-title" content="부록 C. R / Python 치트시트">
+        <meta name="ai-context" content="
+        이 부록은 R과 Python(NumPy, SciPy)의 행렬 연산 대조표입니다.
+        생성, 곱셈, 전치, 역행렬, 행렬식, 랭크, 연립방정식 풀이,
+        고유분해, SVD, QR, 숄레스키, 의사역행렬, PCA, 희소행렬을 다룹니다.
+        R은 열 우선이고 NumPy는 행 우선이며,
+        R의 svd는 V를 돌려주고 NumPy는 V transpose를 돌려줍니다.
+        R의 chol은 상삼각을, numpy.linalg.cholesky는 하삼각을 돌려줍니다.
+        R의 asterisk는 원소별 곱이고 행렬곱은 퍼센트 asterisk 퍼센트입니다.
+        고유벡터의 부호는 언어와 버전에 따라 다를 수 있습니다.
+        ">
+---
+
+## 1. 생성과 기본 연산 {#s1}
+
+| | R | Python (NumPy) |
+|---|---|---|
+| 행렬 생성 | `matrix(x, nrow=, byrow=)` | `np.array([[...]])` |
+| 단위행렬 | `diag(n)` | `np.eye(n)` |
+| 대각행렬 | `diag(v)` | `np.diag(v)` |
+| 전치 | `t(A)` | `A.T` |
+| **행렬곱** | `A %*% B` | `A @ B` |
+| **원소별 곱** | `A * B` | `A * B` |
+| 열 결합 · 행 결합 | `cbind` · `rbind` | `np.column_stack` · `np.vstack` |
+| 크기 | `dim(A)` | `A.shape` |
+| $A^\top A$ | `crossprod(A)` | `A.T @ A` |
+| $AA^\top$ | `tcrossprod(A)` | `A @ A.T` |
+
+- ⚠️ R의 `*`는 **하다마드 곱**. 크기가 같으면 오류 없이 틀린 답이 나옴 (🔗[2장](../chapters/02_linear_transformation.qmd))
+- `crossprod(A)`는 `t(A) %*% A`보다 빠르고 대칭성을 보장
+
+------------------------------------------------------------------------
+
+## 2. 풀이와 분해 {#s2}
+
+| | R | Python |
+|---|---|---|
+| **연립방정식** | `solve(A, b)` | `np.linalg.solve(A, b)` |
+| 역행렬 | `solve(A)` | `np.linalg.inv(A)` |
+| 행렬식 | `det(A)` | `np.linalg.det(A)` |
+| log 행렬식 | `determinant(A, logarithm=TRUE)` | `np.linalg.slogdet(A)` |
+| 랭크 | `qr(A)$rank` | `np.linalg.matrix_rank(A)` |
+| 조건수 | `kappa(A, exact=TRUE)` | `np.linalg.cond(A)` |
+| 대각합 | `sum(diag(A))` | `np.trace(A)` |
+| 고유분해 (일반) | `eigen(A)` | `np.linalg.eig(A)` |
+| **고유분해 (대칭)** | `eigen(A, symmetric=TRUE)` | `np.linalg.eigh(A)` |
+| SVD | `svd(A)` | `np.linalg.svd(A)` |
+| QR | `qr(A)` → `qr.Q`, `qr.R` | `np.linalg.qr(A)` |
+| 숄레스키 | `chol(A)` | `np.linalg.cholesky(A)` |
+| 삼각 풀이 | `backsolve`, `forwardsolve` | `scipy.linalg.solve_triangular` |
+| LU | `Matrix::lu(A)` | `scipy.linalg.lu_factor` |
+| 의사역행렬 | `MASS::ginv(A)` | `np.linalg.pinv(A)` |
+| 최소제곱 | `lm(y ~ X)`, `qr.solve` | `np.linalg.lstsq(X, y)` |
+| PCA | `prcomp(X)` | `sklearn.decomposition.PCA` |
+| 영공간 기저 | `MASS::Null(t(A))` | `scipy.linalg.null_space(A)` |
+
+- 🔗[부록 A](a_numerical.qmd) … 어느 것을 언제 쓸지, 무엇을 하지 말아야 할지
+
+------------------------------------------------------------------------
+
+## 3. ⚠️ 언어별 관례 차이 {#s3}
+
+| 항목 | R | Python |
+|---|---|---|
+| 메모리 배치 | **열 우선**(column-major) | **행 우선**(row-major) |
+| `matrix()` 채우는 방향 | 열부터 (`byrow=TRUE`로 변경) | 행부터 |
+| SVD의 $V$ | `svd(A)$v` = **$V$** | `np.linalg.svd` = **$V^\top$** |
+| 숄레스키 | `chol(A)` = **상삼각** $R$, $A=R^\top R$ | `np.linalg.cholesky` = **하삼각** $L$, $A=LL^\top$ |
+| 대칭 고유값 정렬 | `eigen` … **내림차순** | `eigh` … **오름차순** |
+| 인덱스 | 1부터 | 0부터 |
+
+- ⚠️ 고유벡터·특이벡터의 **부호는 불확정** (🔗[13장](../chapters/13_pca.qmd))
+  - 언어·버전·BLAS 구현에 따라 뒤집힐 수 있음
+  - 재현성이 필요하면 부호를 직접 고정 (예: 절댓값 최대 성분을 양수로)
+
+------------------------------------------------------------------------
+
+## 4. 희소행렬과 대규모 {#s4}
+
+| | R | Python |
+|---|---|---|
+| 희소행렬 | `Matrix::sparseMatrix()`, `dgCMatrix` | `scipy.sparse.csc_matrix` |
+| 밀도 확인 | `Matrix::nnzero(A)/length(A)` | `A.nnz / np.prod(A.shape)` |
+| truncated SVD | `irlba::irlba(A, nv=k)` | `scipy.sparse.linalg.svds` |
+| 부분 고유분해 | `RSpectra::eigs_sym` | `scipy.sparse.linalg.eigsh` |
+| 가장 가까운 양정치 | `Matrix::nearPD` | — (직접 구현) |
+
+- ⚠️ 희소행렬에 `as.matrix()` / `.toarray()` 금지 (🔗[2장](../chapters/02_linear_transformation.qmd))
+- 희소성을 유지하는 연산과 깨는 연산은 🔗[2장](../chapters/02_linear_transformation.qmd) 🧬 박스 참고
+
+------------------------------------------------------------------------
+
+## 5. 검산 스니펫 {#s5}
+
+::: {.panel-tabset}
+## R
+
+```{r}
+chk <- function(A) {
+  s <- svd(A)
+  list(
+    rank    = sum(s$d > max(dim(A)) * .Machine$double.eps * s$d[1]),
+    kappa   = s$d[1] / min(s$d[s$d > 1e-12]),
+    sym     = max(abs(A - t(A))),
+    posdef  = tryCatch({ chol(A); TRUE }, error = function(e) FALSE)
+  )
+}
+
+# 분해 검산
+A <- matrix(rnorm(16), 4)
+s <- svd(A);  max(abs(s$u %*% diag(s$d) %*% t(s$v) - A))     # SVD
+q <- qr(A);   max(abs(qr.Q(q) %*% qr.R(q) - A))              # QR
+e <- eigen(crossprod(A), symmetric = TRUE)
+max(abs(e$vectors %*% diag(e$values) %*% t(e$vectors) - crossprod(A)))  # EVD
+```
+
+## Python
+
+```{python}
+import numpy as np
+
+def chk(A):
+    d = np.linalg.svd(A, compute_uv=False)
+    return dict(rank=np.linalg.matrix_rank(A),
+                kappa=d[0]/d[d > 1e-12].min(),
+                sym=np.abs(A - A.T).max())
+
+A = np.random.default_rng(0).normal(size=(4,4))
+U, d, Vt = np.linalg.svd(A); np.allclose(U @ np.diag(d) @ Vt, A)
+Q, R = np.linalg.qr(A);      np.allclose(Q @ R, A)
+w, V = np.linalg.eigh(A.T @ A); np.allclose(V @ np.diag(w) @ V.T, A.T @ A)
+```
+:::
+
+------------------------------------------------------------------------
+
+## 6. 장별 핵심 함수 {#s6}
+
+| 장 | 함수 |
+|---|---|
+| 🔗[4장](../chapters/04_subspaces.qmd) 부분공간 | `qr()$rank`, `null_space` |
+| 🔗[6장](../chapters/06_determinant.qmd) 행렬식 | `det`, `kappa` |
+| 🔗[7장](../chapters/07_gauss_elimination.qmd) 소거법 | `qr`, `sympy.Matrix.rref` |
+| 🔗[8장](../chapters/08_lu_cholesky.qmd) LU·숄레스키 | `chol`, `backsolve`, `lu_factor` |
+| 🔗[9장](../chapters/09_least_squares.qmd) 최소제곱 | `lm`, `lstsq`, `glmnet` |
+| 🔗[10장](../chapters/10_pseudo_inverse.qmd) 의사역행렬 | `ginv`, `pinv` |
+| 🔗[12장](../chapters/12_evd.qmd) EVD | `eigen(symmetric=TRUE)`, `eigh` |
+| 🔗[13장](../chapters/13_pca.qmd) PCA | `prcomp`, `PCA` |
+| 🔗[14장](../chapters/14_qr.qmd) QR | `qr`, `np.linalg.qr` |
+| 🔗[15장](../chapters/15_svd.qmd) SVD | `svd`, `irlba` |
+| 🔗[16장](../chapters/16_ica_nmf.qmd) ICA·NMF | `fastICA`, `NMF`, `sklearn` |
+| 🔗[18장](../chapters/18_fourier.qmd) 푸리에 | `fft`, `np.fft` |

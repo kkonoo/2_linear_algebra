@@ -1,117 +1,106 @@
-# Quarto AI 강의 템플릿
+# 선형대수 — 기하학적 직관으로 읽는
 
-통계 이론 설명 + R 코드 실행 + AI 학습 도우미가 통합된 Quarto 강의 사이트 템플릿입니다.
+Quarto 기반 선형대수 교재 사이트.
 
----
+- 공개 주소: https://kkonoo.github.io/2_linear_algebra/
+- 구성: 6 Part · 18장 + 부록 3
+- 대상: 학부 일반 선형대수 (수식·기하학적 직관 중심, R/Python 코드는 보조)
 
-## 🗂 파일 구조
+## 구조
 
 ```
-.
-├── _quarto.yml                  # 사이트 전역 설정
-├── index.qmd                    # 홈페이지
-├── chapters/
-│   └── 01_intro.qmd             # 챕터 예시
-├── assets/
-│   ├── custom.css               # 커스텀 스타일
-│   └── ai-chat-init.html        # AI 위젯 초기화 (Worker URL 입력)
-├── _extensions/
-│   └── ai-chat/
-│       └── ai-chat.js           # AI 채팅 위젯 코어
-├── cloudflare-worker.js         # Cloudflare Worker 코드
-└── .github/workflows/deploy.yml # GitHub Actions 자동 배포
+_quarto.yml          # 사이트 설정 · Part별 사이드바
+index.qmd            # 홈 — 전체 목차, 표기 규칙
+chapters/
+  01_vector.qmd              Part I.  벡터와 행렬
+  02_linear_transformation.qmd
+  03_inner_product.qmd
+  04_subspaces.qmd           Part II. 공간의 구조
+  05_change_of_basis.qmd
+  06_determinant.qmd
+  07_gauss_elimination.qmd   Part III. 연립방정식 풀기
+  08_lu_cholesky.qmd
+  09_least_squares.qmd       Part IV. 최적해
+  10_pseudo_inverse.qmd
+  11_eigen.qmd               Part V.  분해
+  12_evd.qmd
+  13_pca.qmd
+  14_qr.qmd
+  15_svd.qmd
+  16_ica_nmf.qmd             Part VI. 더 나아가기
+  17_matrix_calculus.qmd
+  18_fourier.qmd
+  _template.qmd              (렌더 제외 — 형식 참고용)
+appendix/
+  a_numerical.qmd  b_affine.qmd  c_cheatsheet.qmd
+figs/                # 그림 생성 스크립트 (style.py, fig_part1.py, fig_part2.py)
+assets/              # html.css, ai-chat-init.html
+images/              # 로고·파비콘 + 챕터별 그림 (ch01/ … ch18/, figs/ 스크립트가 생성)
 ```
 
----
+## 표기 규칙
 
-## 🚀 시작하기
+| 기호 | 뜻 |
+|---|---|
+| 🎯 | 학습목표 |
+| 🤔 | 출발 질문 |
+| ⚠️ | 흔한 오해 |
+| 🧬 | 생물정보학 연결 (선택 읽기) |
+| 🔗 | 다른 장과의 연결 |
+| ✅ | 체크리스트 · 연습문제 |
 
-### 1단계: Cloudflare Worker 배포 (API 키 숨기기)
+문서 소스에서 **＋** 표시는 원자료(`S_M_1_선형대수`)에 없던 신규 보완 항목입니다.
 
-1. [Cloudflare Dashboard](https://dash.cloudflare.com) 접속
-2. **Workers & Pages → Create Worker**
-3. `cloudflare-worker.js` 내용 붙여넣기
-4. 저장 후 **Settings → Environment Variables**
-   - 변수명: `ANTHROPIC_API_KEY`
-   - 값: Anthropic API 키
-   - **"Encrypt" 체크** (시크릿으로 저장)
-5. Worker URL 복사 (예: `https://my-worker.workers.dev`)
+## 장 작성 형식
 
-> Cloudflare Workers 무료 플랜: 하루 10만 요청까지 무료
-
-### 2단계: Worker URL 입력
-
-`assets/ai-chat-init.html` 파일에서:
-
-```js
-const WORKER_URL = "https://YOUR_WORKER.workers.dev";
-//                  ↑ 여기를 복사한 URL로 교체
 ```
-
-또한 `cloudflare-worker.js`의 `ALLOWED_ORIGINS`에 GitHub Pages 도메인 추가:
-
-```js
-const ALLOWED_ORIGINS = [
-  "https://YOUR_USERNAME.github.io",  // ← 변경
-  "http://localhost:4321",
-];
-```
-
-### 3단계: 사이트 설정
-
-`_quarto.yml`에서:
-- `title`: 강의 제목
-- `navbar.right.href`: GitHub 저장소 URL
-
-### 4단계: GitHub Pages 활성화
-
-1. GitHub 저장소 → **Settings → Pages**
-2. Source: **GitHub Actions** 선택
-3. `main` 브랜치에 push → 자동 빌드 & 배포
-
 ---
-
-## ✍️ 챕터 작성법
-
-새 챕터 `.qmd` 파일 생성 시 상단 YAML에 AI 컨텍스트 추가:
-
-```yaml
----
-title: "W5. Pre-processing of RNA-seq Data"
+title: "N. 제목"
+description: "한 줄 설명"
+author: "Eunji Ha"
+date: today
 format:
   html:
     include-in-header:
       text: |
-        <meta name="ai-title" content="W5. RNA-seq Pre-processing">
-        <meta name="ai-context" content="
-        이 챕터에서 다루는 핵심 개념을 2-3문단으로 요약.
-        AI가 이 내용을 시스템 프롬프트로 받아 답변합니다.
-        ">
----
-```
-
-그 다음 `_quarto.yml`의 `sidebar.contents`에 파일 추가:
-
-```yaml
-- section: "Part 2. DEG Analysis"
-  contents:
-    - chapters/05_preprocessing.qmd
-```
-
+        <meta name="ai-title" content="N. 제목">
+        <meta name="ai-context" content="AI 도우미에게 줄 장 요약 2-3문단">
 ---
 
-## 💡 로컬 미리보기
+🎯 학습목표 callout → 🤔 출발 질문 → 본문(## 1. {#s1} / ### 1) {#s1-1})
+→ 코드 callout(R·Python 탭) → ⚠️ 흔한 오해 → 🧬 생물정보학에서는
+→ ✅ 정리와 연습 → 🔗 다음 장 → 참고 자료
+```
+
+### 서술 규칙 — 개조식
+
+- 본문은 **문단이 아니라 항목**으로 쓴다. 줄글 서술 금지
+- 관계는 들여쓰기와 기호로 표현
+  - `…` 부연 · `→` 귀결 · `⟹` 결론 · `vs` 대비
+- 대비·분류는 표로 뺀다
+- 강조할 한 문장만 `>` 인용으로 남긴다 (장당 1–2회)
+- 문장 끝맺음은 명사형으로 (`~이다`/`~합니다` 대신 `~임`, `~함`, 또는 체언 종결)
+
+새 장을 추가하면 `_quarto.yml`의 `sidebar.contents` 해당 Part에도 등록합니다.
+
+## 그림
 
 ```bash
-# Quarto 설치: https://quarto.org/docs/get-started/
+cd figs && python3 fig_part1.py && python3 fig_part2.py
+```
+
+- 33장의 그림이 `images/chXX/`에 생성됩니다
+- 자세한 규칙은 [figs/README.md](figs/README.md)
+
+## 참고
+
+- 원자료: `S_M_1_선형대수` 문서 1–5 (2021–2022)
+- [공돌이의 수학정리노트](https://angeloyeo.github.io/) — 기하학적 직관 서술 참고, 각 장 말미에 해당 포스트 연결
+
+## 로컬 미리보기
+
+```bash
 quarto preview
 ```
 
----
-
-## 📦 사용된 기술
-
-- [Quarto](https://quarto.org) — R Markdown 기반 출판 시스템
-- [Cloudflare Workers](https://workers.cloudflare.com) — API 키 프록시
-- [Anthropic API](https://anthropic.com) — AI 채팅 백엔드
-- GitHub Pages — 무료 호스팅
+push하면 GitHub Actions가 자동으로 빌드·배포합니다 (`.github/workflows/deploy.yml`).

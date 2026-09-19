@@ -4,16 +4,17 @@ project:
   # output-dir: _site
 
 website:
-  title: "2. Linear Algebra"          # ← 변경
-  description: "강의 설명"           # ← 변경
+  title: "선형대수"
+  description: "기하학적 직관으로 읽는 선형대수 — 벡터에서 SVD까지"
   favicon: images/logo.ico
+  page-navigation: true
   navbar:
     left:
       - href: index.qmd
         text: Home
     right:
       - icon: github
-        href: https://github.com/kkonoo/2_linear_algebra  # ← 변경
+        href: https://github.com/kkonoo/2_linear_algebra
 
   sidebar:
     style: "floating"
@@ -21,20 +22,48 @@ website:
     contents:
       - text: "Home"
         href: index.qmd
-      - section: "Part 1. 기초"
+
+      - section: "Part I. 벡터와 행렬"
         contents:
-          - chapters/01_intro.qmd
-          - chapters/02_r_basics.qmd
-      # - section: "1. R env"
-      #   contents: "part1/*.qmd"
-      # - section: "2. Genomics"
-      #   contents: "part2/*.qmd"
-      # - section: "3. Omics"
-      #   contents: "part3/*.qmd"
-      # - section: "4. Multi-Omics"
-      #   contents: "part4/*.qmd"
-      # - section: "5. Capstone"
-      #   contents: "part5/*.qmd"
+          - chapters/01_vector.qmd
+          - chapters/02_linear_transformation.qmd
+          - chapters/03_inner_product.qmd
+
+      - section: "Part II. 공간의 구조"
+        contents:
+          - chapters/04_subspaces.qmd
+          - chapters/05_change_of_basis.qmd
+          - chapters/06_determinant.qmd
+
+      - section: "Part III. 연립방정식 풀기"
+        contents:
+          - chapters/07_gauss_elimination.qmd
+          - chapters/08_lu_cholesky.qmd
+
+      - section: "Part IV. 최적해"
+        contents:
+          - chapters/09_least_squares.qmd
+          - chapters/10_pseudo_inverse.qmd
+
+      - section: "Part V. 분해"
+        contents:
+          - chapters/11_eigen.qmd
+          - chapters/12_evd.qmd
+          - chapters/13_pca.qmd
+          - chapters/14_qr.qmd
+          - chapters/15_svd.qmd
+
+      - section: "Part VI. 더 나아가기"
+        contents:
+          - chapters/16_ica_nmf.qmd
+          - chapters/17_matrix_calculus.qmd
+          - chapters/18_fourier.qmd
+
+      - section: "부록"
+        contents:
+          - appendix/a_numerical.qmd
+          - appendix/b_affine.qmd
+          - appendix/c_cheatsheet.qmd
 
   page-footer:
     left: "Copyright 2026, Eunji"
@@ -51,17 +80,14 @@ format:
     toc-float: true
     page-layout: full
 
-    code-fold: false  
+    code-fold: false
     code-copy: true
-    highlight-style: github 
+    highlight-style: github
 
     number-sections: false
     smooth-scroll: true
 
-    # grid:                       
-    #   sidebar-width: 400px
-    #   body-width: 1000px
-    #   margin-width: 300px # toc
+    html-math-method: mathjax
 
     # AI 채팅 위젯 전역 설정
     include-after-body: assets/ai-chat-init.html
@@ -76,4 +102,3 @@ execute:
   eval: false
   warning: false
   message: false
-
