@@ -279,7 +279,9 @@ np.round(np.linalg.svd(B, compute_uv=False), 10)
 - 왜 가능한가
   - 두 방법 모두 **행렬-벡터 곱만** 사용
   - ⟹ 희소성을 그대로 살림 (🔗[2장](02_linear_transformation.qmd))
-  - 중심화를 명시적으로 하지 않고 $Xv - \bar{x}(\mathbf{1}^\top v)$로 처리 ⟹ 희소성 유지
+  - $X\in\mathbb{R}^{n\times p}$, 열 평균 벡터 $\bar{x}\in\mathbb{R}^p$, $v\in\mathbb{R}^p$일 때
+    $$(X-\mathbf{1}\bar{x}^\top)v = Xv - \mathbf{1}(\bar{x}^\top v), \qquad \mathbf{1}\in\mathbb{R}^n$$
+  - 중심화한 행렬을 직접 만들지 않고 곱을 계산 ⟹ 원본 $X$의 희소성 유지
 
 - Seurat `RunPCA`가 실제로 하는 일
   - HVG만 골라 행렬을 줄임
