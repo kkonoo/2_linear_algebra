@@ -323,6 +323,15 @@ np.allclose(A.T @ e, 0)
 
 ------------------------------------------------------------------------
 
+**직접 해 보기** — [Ridge와 Lasso: λ와 수축 ↗](https://kkonoo.github.io/edu_sims/sims/ridge-lasso/?lang=ko){target="_blank"}
+
+::: {.column-page}
+```{=html}
+<iframe src="https://kkonoo.github.io/edu_sims/sims/ridge-lasso/?embed=1&lang=ko" title="Ridge와 Lasso: λ와 수축" loading="lazy"
+        style="width: 100%; height: 1300px; border: 0;"></iframe>
+```
+:::
+
 ## ✅ 정리와 연습 {#s7}
 
 ### 한 줄 요약 {#s7-1}
