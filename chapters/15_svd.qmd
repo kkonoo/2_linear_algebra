@@ -151,6 +151,15 @@ $$\min_{\text{rank}(B)\le k}\lVert A-B\rVert_F = \lVert A-A_k\rVert_F = \sqrt{\s
 
 ------------------------------------------------------------------------
 
+**직접 해 보기** — [PCA·SVD: 저랭크 근사 ↗](https://kkonoo.github.io/edu_sims/sims/pca-svd/?lang=ko){target="_blank"}
+
+::: {.column-page}
+```{=html}
+<iframe src="https://kkonoo.github.io/edu_sims/sims/pca-svd/?embed=1&lang=ko" title="PCA·SVD: 저랭크 근사" loading="lazy"
+        style="width: 100%; height: 1300px; border: 0;"></iframe>
+```
+:::
+
 ## 5. 의사역행렬 {#s5}
 
 - 🔗[10장](10_pseudo_inverse.qmd)에서 예고한 것

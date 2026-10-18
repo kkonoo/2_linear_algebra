@@ -136,6 +136,15 @@ $$\max_e\; e^\top C e \quad \text{subject to}\quad e^\top e = 1$$
 
 ------------------------------------------------------------------------
 
+**직접 해 보기** — [PCA·SVD: 저랭크 근사 ↗](https://kkonoo.github.io/edu_sims/sims/pca-svd/?lang=ko){target="_blank"}
+
+::: {.column-page}
+```{=html}
+<iframe src="https://kkonoo.github.io/edu_sims/sims/pca-svd/?embed=1&lang=ko" title="PCA·SVD: 저랭크 근사" loading="lazy"
+        style="width: 100%; height: 1300px; border: 0;"></iframe>
+```
+:::
+
 ## 4. Scree plot {#s4}
 
 - 전체 분산 = 고유값의 합 (🔗[12장](12_evd.qmd) trace)
