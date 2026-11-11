@@ -158,6 +158,8 @@ $$A^+ = (A^\top A)^{-1}A^\top \qquad\Longleftrightarrow\qquad \hat{x} = (A^\top 
 - ⟹ 영공간 성분을 0으로 두는 것이 최소 노름
 - ⟹ **$A^+b$는 항상 행공간 안에 있음**
 
+![해집합 $x_p+N(A)$는 영공간 $N(A)$와 평행한 직선이고, 행공간은 원점을 지나며 이 직선과 수직으로 만난다. 만나는 점 $A^+b$가 해집합에서 원점에 가장 가까운 해이고(점선 원호), 이 해는 행공간 위에 있다(2차원으로 그린 예).](../images/ch10/f1_min_norm.png){fig-align="center" width="72%"}
+
 ### 3) 두 최소화의 순서 {#s5-3}
 
 - ① 먼저 $\lVert Ax-b\rVert$를 최소화 (최소제곱)
