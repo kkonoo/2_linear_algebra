@@ -196,7 +196,7 @@ $$x = x_p + x_{\text{null}}, \qquad x_{\text{null}} \in N(A)$$
 - 계수가 곧 그 직선의 **법선벡터** … $2x+y=5$의 법선은 $(2,1)$
 - 🔗[3장](03_inner_product.qmd)의 행벡터 등고선과 같은 그림
 
-![같은 연립방정식의 두 그림. 행 그림은 직선의 교차, 열 그림은 열벡터의 조합.](../images/ch07/f1_row_column_picture.png){fig-align="center" width="88%"}
+![같은 연립방정식의 두 그림. 행 그림은 직선의 교차, 열 그림은 열벡터의 조합.](../images/ch07/f1_row_column_picture.png){fig-align="center" width="87%"}
 
 
 ### 2) 소거가 하는 일 {#s6-2}
@@ -207,7 +207,7 @@ $$x = x_p + x_{\text{null}}, \qquad x_{\text{null}} \in N(A)$$
   - 직선은 움직이지만 **교점은 그대로**
   - 그것이 행동치의 기하학적 내용
 
-![소거가 진행되면 법선벡터가 축에 평행해진다. 직선은 움직이지만 교점은 그대로다.](../images/ch07/f2_elimination_geometry.png){fig-align="center" width="100%"}
+![소거가 진행될수록 각 직선의 법선벡터(점선 화살표)가 축에 평행해진다. 직선은 움직이지만 교점 $(2,1)$은 그대로다.](../images/ch07/f2_elimination_geometry.png){fig-align="center" width="98%"}
 
 
 ::: {.callout-tip collapse="true"}
