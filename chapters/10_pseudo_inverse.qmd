@@ -131,7 +131,7 @@ $$\text{(iii) } (AA^+)^\top = AA^+ \qquad \text{(iv) } (A^+A)^\top = A^+A$$
 $$A^+ = (A^\top A)^{-1}A^\top \qquad\Longleftrightarrow\qquad \hat{x} = (A^\top A)^{-1}A^\top b$$
 
 - ⟹ **좌측 역행렬 = 최소제곱해 공식**
-- 두 장이 같은 것을 다른 입구로 들어온 것
+- 두 장은 같은 곳에 서로 다른 입구로 들어온 것
 
 | 🔗[9장](09_least_squares.qmd) | 🔗[10장](10_pseudo_inverse.qmd) |
 |---|---|
@@ -264,8 +264,8 @@ np.allclose(Vt.T @ np.diag(dp) @ U.T, np.linalg.pinv(A))
   - 유전자 $p = 20{,}000$, 샘플 $n = 50$
   - design matrix가 **가로로 긴** 행렬
 
-- $A^\top A$는 무슨 일이 일어나는가
-  - 크기 $20{,}000 \times 20{,}000$ … 만들 수조차 부담
+- $A^\top A$에는 무슨 일이 일어나는가
+  - 크기 $20{,}000 \times 20{,}000$ … 만드는 것조차 부담
   - $\text{rank}(A^\top A) = \text{rank}(A) \le 50 \ll 20{,}000$ (🔗[4장](04_subspaces.qmd))
   - ⟹ **항상 특이행렬**. 정규방정식은 원리적으로 무력
 - 영공간의 차원이 $19{,}950$ ⟹ 데이터에 완벽히 맞는 계수 조합이 **무한히 많음**
@@ -287,7 +287,7 @@ np.allclose(Vt.T @ np.diag(dp) @ U.T, np.linalg.pinv(A))
   - 대신 다중검정 문제가 생김 (FDR)
 
 - ⚠️ `MASS::ginv`의 위험
-  - $p \gg n$에서도 조용히 답을 돌려줌
+  - $p \gg n$에서도 경고 없이 답을 돌려줌
   - 그 답은 최소노름 해일 뿐, "데이터가 지지하는 유일한 답"이 아님
   - ⟹ 계수를 해석하기 전에 반드시 rank와 $p$ 대 $n$을 확인할 것
 :::
