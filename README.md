@@ -33,9 +33,9 @@ chapters/
   _template.qmd              (렌더 제외 — 형식 참고용)
 appendix/
   a_numerical.qmd  b_affine.qmd  c_cheatsheet.qmd
-figs/                # 그림 생성 스크립트 (style.py, fig_part1.py, fig_part2.py)
+figs/                # 그림 생성 스크립트 (medfig.py, lafig.py, 장마다 chNN.py)
 assets/              # html.css, ai-chat-init.html
-images/              # 로고·파비콘 + 챕터별 그림 (ch01/ … ch18/, figs/ 스크립트가 생성)
+images/              # 로고·파비콘 + 장별 그림 (ch01/ … ch18/, figs/ 스크립트가 생성)
 ```
 
 ## 표기 규칙
@@ -86,10 +86,10 @@ format:
 ## 그림
 
 ```bash
-cd figs && python3 fig_part1.py && python3 fig_part2.py
+cd figs && for f in ch*.py; do python3 "$f"; done
 ```
 
-- 33장의 그림이 `images/chXX/`에 생성됩니다
+- 장마다 스크립트 하나(`figs/chNN.py`)가 `images/chNN/`에 그림을 만듭니다 (35장)
 - 자세한 규칙은 [figs/README.md](figs/README.md)
 
 ## 참고
