@@ -90,6 +90,7 @@ format:
     smooth-scroll: true
 
     html-math-method: mathjax
+    lightbox: auto        # 그림을 누르면 크게 보기
 
     # AI 채팅 위젯 전역 설정
     include-after-body:
