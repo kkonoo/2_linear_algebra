@@ -74,7 +74,7 @@ format:
 - ⚠️ 여기서 벡터가 사는 공간은 **$n$차원(샘플이 축)**
   - 두 유전자의 상관을 볼 때, 벡터의 성분은 샘플
 
-![중심화한 두 편차 벡터 사이 각도의 코사인이 곧 상관계수다.](../images/ch11/f2_correlation_cosine.png){fig-align="center" width="48%"}
+![설명용 가상 데이터에서 중심화한 두 편차 벡터 $a$, $b$를 길이 1로 맞춰 그렸다. 두 벡터 사이 각 $\theta$의 코사인, 곧 $b$를 $a$ 방향으로 내린 그림자의 길이가 상관계수 $r$이다.](../images/ch11/f2_correlation_cosine.png){fig-align="center" width="38%"}
 
   - 산점도에서 보는 2차원 그림과는 다른 공간
 
@@ -99,7 +99,7 @@ $$Ax = \lambda x, \qquad x \neq 0$$
 
 - 사영의 $\lambda=0$ … 고유벡터가 영공간에 있다는 뜻 (🔗[4장](04_subspaces.qmd))
 
-![대부분의 벡터는 방향이 바뀌지만, 고유벡터만은 방향을 유지한 채 길이만 변한다.](../images/ch11/f1_eigenvector.png){fig-align="center" width="88%"}
+![$A=\begin{bmatrix}2&1\\1&2\end{bmatrix}$를 가하면 회색 벡터들은 방향이 바뀐다. 고유벡터 $v_1$, $v_2$만 점선 방향을 그대로 따르고, 길이가 각각 $\lambda=3$배, $1$배로 변한다.](../images/ch11/f1_eigenvector.png){fig-align="center" width="84%"}
 
 
 ### 2) 특성방정식 {#s2-2}
