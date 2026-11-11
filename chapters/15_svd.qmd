@@ -68,7 +68,7 @@ format:
   - 길이만 $\sigma_i$배로 바뀜
 - 그런 입력 기저가 **항상 존재한다**는 것이 SVD의 내용
 
-![직교하는 $v_1,v_2$는 변환 후에도 직교한다. 길이만 $\sigma_1,\sigma_2$배가 된다.](../images/ch15/f1_circle_to_ellipse.png){fig-align="center" width="88%"}
+![직교하는 $v_1,v_2$는 $A$로 변환한 뒤에도 직교한다(원점의 직각 표시). 단위원은 타원이 되고, 길이만 $\sigma_1,\sigma_2$배가 된 $\sigma_1u_1,\sigma_2u_2$가 타원의 축이 된다.](../images/ch15/f1_circle_to_ellipse.png){fig-align="center" width="85%"}
 
 
 ------------------------------------------------------------------------
@@ -146,7 +146,7 @@ $$\min_{\text{rank}(B)\le k}\lVert A-B\rVert_F = \lVert A-A_k\rVert_F = \sqrt{\s
 - 예: $1000\times1000$ 이미지, $k=50$
   - 원본 $10^6$ ⟹ 근사 $50\times2001 \approx 10^5$ … **10분의 1**
 
-![특이값이 큰 조각부터 $k$개만 남긴 근사. 저장량은 크게 줄지만 구조는 살아남는다.](../images/ch15/f2_lowrank.png){fig-align="center" width="100%"}
+![설명용 가상 이미지($140\times140$)에서 특이값이 큰 조각부터 $k$개만 남긴 근사다. 오차는 $\lVert A-A_k\rVert_F/\lVert A\rVert_F$이고, 저장은 원본의 $m\times n$개 대비 $k(m+n+1)$개의 비율이다. $k$가 작아도 큰 구조는 살아남는다.](../images/ch15/f2_lowrank.png){fig-align="center" width="81%"}
 
 
 ------------------------------------------------------------------------
