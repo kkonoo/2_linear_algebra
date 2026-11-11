@@ -89,7 +89,7 @@ $$A = \begin{bmatrix} | & | \\ T(e_1) & T(e_2) \\ | & | \end{bmatrix}, \qquad Ax
 
 > 행렬의 열을 읽으면 그 변환이 공간에 무슨 짓을 하는지 바로 보인다.
 
-![$A=\begin{bmatrix}2&1\\0&3\end{bmatrix}$의 두 열이 곧 $e_1,e_2$의 행선지다.](../images/ch02/f1_columns.png){fig-align="center" width="85%"}
+![$A=\begin{bmatrix}2&1\\0&3\end{bmatrix}$는 $e_1$을 첫 열 $(2,0)$으로, $e_2$를 둘째 열 $(1,3)$으로 보낸다. 단위정사각형은 두 열이 만드는 평행사변형이 되고, $(1,1)$은 $(3,3)$으로 간다.](../images/ch02/f1_columns.png){fig-align="center" width="69%"}
 
 
 ------------------------------------------------------------------------
@@ -114,7 +114,7 @@ $$A = \begin{bmatrix} | & | \\ T(e_1) & T(e_2) \\ | & | \end{bmatrix}, \qquad Ax
 - 직사각행렬이면 순서를 바꾸는 것 자체가 정의되지 않기도 함
   - $(m\times n)(n\times p)$는 되지만 $(n\times p)(m\times n)$은 $p \neq m$이면 불가
 
-![같은 두 변환이라도 순서를 바꾸면 결과가 다르다. 점선은 변환 전 단위정사각형.](../images/ch02/f3_noncommute.png){fig-align="center" width="100%"}
+![회전 $R$(90°)과 $x$축 사영 $P$를 순서만 바꿔 적용했다. $PR$은 $x$축 위의 선분으로, $RP$는 $y$축 위의 선분으로 끝난다. 점선은 변환 전 단위정사각형이다.](../images/ch02/f3_noncommute.png){fig-align="center" width="81%"}
 
 
 ### 3) 행렬곱이 아닌 곱들 {#s3-3}
@@ -183,7 +183,7 @@ $$A = \begin{bmatrix} | & | \\ T(e_1) & T(e_2) \\ | & | \end{bmatrix}, \qquad Ax
   - **멱등** … 이미 눌린 것을 또 눌러도 그대로
   - **비가역** … 사라진 성분은 복구 불가 ⟹ $\det = 0$ → 🔗[6장](06_determinant.qmd)
 
-![대표적인 선형변환들. 점선이 변환 전, 색칠이 변환 후. 두 화살표가 각 행렬의 열이다.](../images/ch02/f2_gallery.png){fig-align="center" width="92%"}
+![대표적인 선형변환이 단위정사각형을 옮긴 모습이다. 점선은 변환 전, 색칠한 도형은 변환 후이고, 두 화살표는 $e_1$, $e_2$의 행선지, 곧 행렬의 두 열이다.](../images/ch02/f2_gallery.png){fig-align="center" width="91%"}
 
 
 ::: {.callout-tip collapse="true"}
