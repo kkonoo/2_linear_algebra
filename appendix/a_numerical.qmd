@@ -47,7 +47,7 @@ $$\kappa(A) = \frac{\sigma_{\max}}{\sigma_{\min}} \qquad (\sigma = \text{특이�
 
 - $\det(0.1\,I_{100}) = 10^{-100}$ … 0에 극도로 가까움
   - 그러나 $\kappa = 1$ … **완벽히 안정적**
-- $\det$는 스케일에 휘둘리고, $\kappa$는 스케일 불변
+- $\det$는 스케일에 따라 크게 달라지고, $\kappa$는 스케일 불변
 - ⟹ "$\det$가 작으니 특이행렬에 가깝다"는 판단은 틀릴 수 있음 (🔗[6장](../chapters/06_determinant.qmd))
 
 ### 3) 조건수를 키우는 흔한 실수 {#s1-3}
@@ -125,7 +125,7 @@ np.isclose(0.1 + 0.2, 0.3)  # True
   - 직교성 … $\lVert Q^\top Q - I\rVert$가 machine epsilon의 몇 배인가
   - rank … `qr()$rank`나 SVD의 tolerance가 무엇으로 잡혀 있는가
   - 대칭성 … 이론상 대칭인 행렬도 계산 오차로 미세하게 비대칭
-    - ⟹ `eigen(A, symmetric=TRUE)`를 **명시**해 강제할 것
+    - ⟹ `eigen(A, symmetric=TRUE)`를 **명시**해 대칭으로 다루도록 강제할 것
 
 ------------------------------------------------------------------------
 
