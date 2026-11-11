@@ -114,6 +114,8 @@ $$A = LU \qquad L = \begin{bmatrix}1&&\\ \ell_{21}&1&\\ \ell_{31}&\ell_{32}&1\en
 - 매번 첨가행렬을 소거하면 $k\,O(n^3)$
 - ⟹ $k$가 클수록 이득이 커짐
 
+![LU 분해는 한 번만 하고, 우변 $b$가 바뀔 때마다 두 번의 대입만 반복한다.](../images/ch08/f1_lu_reuse.png){fig-align="center" width="99%"}
+
 ### 2) 행렬식 {#s3-2}
 
 $$\det A = \det(P^\top)\det(L)\det(U) = \pm \prod_i u_{ii}$$
