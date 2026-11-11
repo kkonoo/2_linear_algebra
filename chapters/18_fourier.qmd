@@ -65,7 +65,7 @@ format:
   $$X_k = f_k^* x$$
 - 파세발 정리 $\lVert x\rVert = \lVert X\rVert$ … 유니터리가 길이를 보존하기 때문 (🔗[3장](03_inner_product.qmd))
 
-![$N=64$일 때의 푸리에 기저 몇 개. $k$가 클수록 빠르게 진동한다.](../images/ch18/f1_fourier_basis.png){fig-align="center" width="100%"}
+![$N=64$일 때의 푸리에 기저 $f_0, f_1, f_3, f_8$. 실선은 실수부, 점선은 허수부이며 $k$가 클수록 빠르게 진동한다.](../images/ch18/f1_fourier_basis.png){fig-align="center" width="92%"}
 
 
 > 푸리에 변환은 신기한 적분이 아니라, 좌표계를 시간축에서 주파수축으로 바꾸는 일이다.
@@ -128,7 +128,7 @@ $$h * x = C x = F^*\,\text{diag}(\sqrt{N}\,\hat{h})\,Fx \quad\Longrightarrow\qua
   - 그 규약에서는 고유값이 `fft(h)`이고, 컨볼루션 정리에 별도의 $\sqrt{N}$ 계수가 없음
 - 이것이 그 유명한 정리의 선형대수적 정체 … **컨볼루션 연산자를 대각화한 것**
 
-![이동평균 필터는 주파수 영역에서 고주파 성분을 눌러 없앤다.](../images/ch18/f2_convolution.png){fig-align="center" width="100%"}
+![설명용 가상 신호($k=3$, $k=20$ 성분에 잡음)를 9점 이동평균으로 평활했다. 주파수 영역에서는 입력 스펙트럼에 필터를 원소별로 곱한 것이 출력이 되고, 그 결과 고주파 성분($k=20$)이 눌린다.](../images/ch18/f2_convolution.png){fig-align="center" width="94%"}
 
 
 ### 4) 왜 실용적인가 {#s3-4}
