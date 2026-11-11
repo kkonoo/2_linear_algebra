@@ -132,7 +132,7 @@ $$AB = \sum_{k} a_k b_k^\top \qquad (a_k = A\text{의 }k\text{번째 열}, \; b_
 
 - $a^\top a = |a|^2$ … 자기 자신과의 내적 = 길이의 제곱
 
-![왼쪽: 행벡터는 등고선을 만드는 함수이고 등고선은 행벡터에 수직이다. 오른쪽: 내적은 정사영 길이에 행벡터 길이를 곱한 값.](../images/ch03/f1_rowvector_projection.png){fig-align="center" width="88%"}
+![① 행벡터 $[2\;\;1]$은 입력마다 $2x+y$를 내는 함수다. 같은 값을 내는 입력들, 곧 등고선 $2x+y=c$는 행벡터에 수직이다. ② 내적 $a^\top b$는 $b$를 $a$ 방향으로 정사영한 길이(굵은 막대)에 $|a|$를 곱한 값이다.](../images/ch03/f1_rowvector_projection.png){fig-align="center" width="71%"}
 
 
 ------------------------------------------------------------------------
@@ -151,7 +151,7 @@ $$AB = \sum_{k} a_k b_k^\top \qquad (a_k = A\text{의 }k\text{번째 열}, \; b_
 - 노름이 정해져야 "가깝다", "작다"가 정의됨
   - ⟹ 어떤 노름을 쓰느냐가 최적화의 답을 바꿈 (lasso vs ridge)
 
-![길이가 1인 벡터들의 집합. 어떤 노름을 쓰느냐에 따라 '단위원'의 모양이 달라진다.](../images/ch03/f2_norms.png){fig-align="center" width="88%"}
+![길이가 1인 벡터들의 집합이다. 어떤 노름을 쓰느냐에 따라 '단위원'이 마름모, 원, 정사각형으로 달라진다.](../images/ch03/f2_norms.png){fig-align="center" width="88%"}
 
 
 ### 2) 코시-슈바르츠 부등식 {#s4-2}
