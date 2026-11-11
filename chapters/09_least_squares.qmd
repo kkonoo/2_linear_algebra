@@ -97,7 +97,7 @@ format:
 
 > 회귀는 통계 기법이기 이전에 기하 문제다. 데이터가 만든 부분공간에 관측값을 떨어뜨리는 일.
 
-![$b$는 열공간 밖에 있다. 가장 가까운 점은 수선의 발이고, 잔차는 열공간과 직교한다.](../images/ch09/f1_projection_colspace.png){fig-align="center" width="62%"}
+![$b$는 열공간 $C(A)$ 밖에 있다. 가장 가까운 점은 수선의 발 $\hat{b}=A\hat{x}$이고, 잔차 $e$는 열공간과 직교한다.](../images/ch09/f1_projection_colspace.png){fig-align="center" width="66%"}
 
 
 ------------------------------------------------------------------------
@@ -211,7 +211,7 @@ $$\hat{x}_{\text{ridge}} = (A^\top A + \lambda I)^{-1}A^\top b$$
 
 - 🔗[3장](03_inner_product.qmd)에서 본 노름의 차이가 여기서 결과를 바꿈
 
-![보라 등고선은 잔차제곱합, 청록 영역은 제약. 마름모는 꼭짓점에서 닿기 쉬워 계수가 0이 된다.](../images/ch09/f3_ridge_lasso.png){fig-align="center" width="88%"}
+![회색 등고선은 잔차제곱합이고, 색칠한 영역은 제약이다. 등고선이 제약 영역에 처음 닿는 점이 해다. 마름모는 꼭짓점에서 닿기 쉬워 계수 하나가 정확히 0이 된다.](../images/ch09/f3_ridge_lasso.png){fig-align="center" width="93%"}
 
 
 ::: {.callout-tip collapse="true"}
@@ -280,7 +280,7 @@ np.allclose(A.T @ e, 0)
   - 직교거리를 최소화하는 것은 다른 방법 … total least squares, 그리고 사실상 🔗[13장](13_pca.qmd) PCA
   - ⟹ **회귀직선과 PC1은 다른 선**
 
-![최소화하는 거리가 다르므로 얻어지는 직선도 다르다.](../images/ch09/f2_regression_vs_pca.png){fig-align="center" width="88%"}
+![회귀는 $y$ 방향 거리를, PCA는 직선까지의 직교거리를 최소화한다. 최소화하는 거리가 다르므로 얻어지는 직선도 다르다(설명용 가상 데이터).](../images/ch09/f2_regression_vs_pca.png){fig-align="center" width="89%"}
 
 - **"$A^\top A$는 항상 가역"**
   - 열이 선형독립일 때만. $p > n$이면 절대 불가 → 🔗[10장](10_pseudo_inverse.qmd)
