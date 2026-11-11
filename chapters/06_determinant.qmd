@@ -73,7 +73,7 @@ $$A = \begin{bmatrix}a&b\\c&d\end{bmatrix} \quad\Longrightarrow\quad A^{-1} = \f
 
 - 어떤 도형이든 배율은 같음 … 넓이 $S$인 영역은 변환 후 $\lvert\det A\rvert \cdot S$
 
-![점선이 단위정사각형(넓이 1), 색칠이 변환 후 평행사변형. 그 넓이가 곧 $\lvert\det\rvert$다.](../images/ch06/f1_determinant_area.png){fig-align="center" width="100%"}
+![점선은 단위정사각형(넓이 1)이고, 색칠한 면은 $a_1=Ae_1$, $a_2=Ae_2$가 만드는 평행사변형이다. 그 넓이가 곧 $\lvert\det\rvert$다. ④에서는 $a_1$과 $a_2$의 자리가 바뀌어 부호가 뒤집히고, ⑤에서는 두 열이 한 직선에 놓여 넓이가 0이 된다.](../images/ch06/f1_determinant_area.png){fig-align="center" width="93%"}
 
 
 ### 2) $\det = 0$ — 차원이 무너졌다 {#s2-2}
@@ -109,7 +109,7 @@ $$A = \begin{bmatrix}a&b\\c&d\end{bmatrix} \quad\Longrightarrow\quad A^{-1} = \f
   - ⟹ 입력이 조금만 흔들려도 해가 크게 요동침
 - 🔗[9장](09_least_squares.qmd) 회귀에서 "계수의 표준오차가 커진다"는 현상의 기하학적 정체
 
-![두 열이 평행에 가까워질수록 넓이는 0으로, 조건수는 무한대로 간다.](../images/ch06/f2_collinear.png){fig-align="center" width="88%"}
+![두 열 $a_1$, $a_2$가 평행에 가까워질수록 평행사변형이 납작해진다. 넓이($\det$)는 0으로, 조건수 $\kappa$는 무한대로 간다.](../images/ch06/f2_collinear.png){fig-align="center" width="92%"}
 
 
 ### 2) ＋ 조건수(condition number) {#s3-2}
